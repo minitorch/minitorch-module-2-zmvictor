@@ -106,7 +106,22 @@ def shape_broadcast(shape1: UserShape, shape2: UserShape) -> UserShape:
         IndexingError : if cannot broadcast
     """
     # TODO: Implement for Task 2.2.
-    raise NotImplementedError("Need to implement for Task 2.2")
+    if len(shape2) > len(shape1):
+        shape1, shape2 = shape2, shape1
+    shape1 = list(reversed(shape1))
+    shape2 = list(reversed(shape2))
+    us = []
+    for i in range(len(shape2)):
+        if shape1[i] == shape2[i]:
+            us.append(shape1[i])
+        elif shape1[i] == 1:
+            us.append(shape2[i])
+        elif shape2[i] == 1:
+            us.append(shape1[i])
+        else:
+            raise IndexingError(f"Cannot broadcast {shape1} and {shape2}")
+    us.extend(shape1[len(shape2):])
+    return tuple(reversed(us))
 
 
 def strides_from_shape(shape: UserShape) -> UserStrides:
