@@ -62,7 +62,7 @@ def to_index(ordinal: int, shape: Shape, out_index: OutIndex) -> None:
 
     """
     # TODO: Implement for Task 2.1.
-    out_index.shape = shape.shape
+    # out_index.shape = shape.shape
     for i in range(len(shape) - 1, -1, -1):
         out_index[i] = ordinal % shape[i]
         ordinal = ordinal // shape[i]

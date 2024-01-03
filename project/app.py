@@ -1,3 +1,8 @@
+import os, sys
+
+cur_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(cur_dir + "/../")
+
 from argparse import ArgumentParser
 
 import streamlit as st
