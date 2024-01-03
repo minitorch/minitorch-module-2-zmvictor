@@ -14,7 +14,7 @@ EPS = 1e-6
 
 def mul(x: float, y: float) -> float:
     "$f(x, y) = x * y$"
-    return float(x * y)
+    return x * y
 
 
 def id(x: float) -> float:
@@ -24,17 +24,12 @@ def id(x: float) -> float:
 
 def add(x: float, y: float) -> float:
     "$f(x, y) = x + y$"
-    return float(x + y)
-
-
-def sub(x: float, y: float) -> float:
-    "$f(x, y) = x - y$"
-    return x - y
+    return x + y
 
 
 def neg(x: float) -> float:
     "$f(x) = -x$"
-    return float(-x)
+    return -x
 
 
 def lt(x: float, y: float) -> float:
@@ -80,7 +75,7 @@ def relu(x: float) -> float:
 
     (See https://en.wikipedia.org/wiki/Rectifier_(neural_networks) .)
     """
-    return x if x > 0 else 0.0
+    return x if x > 0 else 0
 
 
 def log(x: float) -> float:
