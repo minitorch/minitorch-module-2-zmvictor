@@ -269,7 +269,18 @@ def tensor_map(fn: Callable[[float], float]) -> Any:
         in_strides: Strides,
     ) -> None:
         # TODO: Implement for Task 2.3.
-        raise NotImplementedError("Need to implement for Task 2.3")
+        if np.array_equal(out_shape, in_shape):
+            for i in range(len(out)):
+                out[i] = fn(in_storage[i])
+        else:
+            for i in range(len(out)):
+                idx = out_strides.copy()
+                to_index(i, out_shape, idx)
+                inidx = in_strides.copy()
+                broadcast_index(idx, out_shape, in_shape, inidx)
+                in_pos = index_to_position(inidx, in_strides)
+                out[i] = fn(in_storage[in_pos])
+                
 
     return _map
 
@@ -319,7 +330,19 @@ def tensor_zip(fn: Callable[[float, float], float]) -> Any:
         b_strides: Strides,
     ) -> None:
         # TODO: Implement for Task 2.3.
-        raise NotImplementedError("Need to implement for Task 2.3")
+        if np.array_equal(out_shape, a_shape) and np.array_equal(out_shape, b_shape):
+            for i in range(len(out)):
+                out[i] = fn(a_storage[i], b_storage[i])
+        else:
+            for i in range(len(out)):
+                idx = out_strides.copy()
+                to_index(i, out_shape, idx)
+                aidx, bidx = a_strides.copy(), b_strides.copy()
+                broadcast_index(idx, out_shape, a_shape, aidx)
+                broadcast_index(idx, out_shape, b_shape, bidx)
+                a_pos = index_to_position(aidx, a_strides)
+                b_pos = index_to_position(bidx, b_strides)
+                out[i] = fn(a_storage[a_pos], b_storage[b_pos])
 
     return _zip
 
@@ -355,7 +378,14 @@ def tensor_reduce(fn: Callable[[float, float], float]) -> Any:
         reduce_dim: int,
     ) -> None:
         # TODO: Implement for Task 2.3.
-        raise NotImplementedError("Need to implement for Task 2.3")
+        for i in range(len(out)):
+            idx = out_strides.copy()
+            to_index(i, out_shape, idx)
+            assert len(idx) == len(a_shape)
+            assert idx[reduce_dim] == 0
+            for j in range(a_shape[reduce_dim]):
+                idx[reduce_dim] = j
+                out[i] = fn(out[i], a_storage[index_to_position(idx, a_strides)])
 
     return _reduce
 
