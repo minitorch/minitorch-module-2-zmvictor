@@ -77,6 +77,7 @@ class TensorBackend:
 
         # Zips
         self.add_zip = ops.zip(operators.add)
+        self.sub_zip = ops.zip(operators.sub)
         self.mul_zip = ops.zip(operators.mul)
         self.lt_zip = ops.zip(operators.lt)
         self.eq_zip = ops.zip(operators.eq)

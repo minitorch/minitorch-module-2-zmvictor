@@ -26,6 +26,9 @@ def add(x: float, y: float) -> float:
     "$f(x, y) = x + y$"
     return x + y
 
+def sub(x: float, y: float) -> float:
+    "$f(x, y) = x - y$"
+    return x - y
 
 def neg(x: float) -> float:
     "$f(x) = -x$"
@@ -107,7 +110,7 @@ def inv_back(x: float, d: float) -> float:
     r"If $f(x) = 1/x$ compute $d \times f'(x)$"
     if abs(x) < EPS:
         raise ValueError("Inverse of zero!")
-    return d * (-1 / x**2)
+    return d * (-1 / x**2 + EPS)
 
 def relu_back(x: float, d: float) -> float:
     r"If $f = relu$ compute $d \times f'(x)$"

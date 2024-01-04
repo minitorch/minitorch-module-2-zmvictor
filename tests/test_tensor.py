@@ -58,6 +58,7 @@ def test_one_derivative(
 ) -> None:
     "Test the gradient of a one-arg tensor function"
     name, _, tensor_fn = fn
+    t1 = tensor(t1.to_numpy().tolist())
     grad_check(tensor_fn, t1)
 
 
@@ -109,6 +110,8 @@ def test_two_grad(
 ) -> None:
     name, _, tensor_fn = fn
     t1, t2 = ts
+    t1 = tensor(t1.to_numpy().tolist())
+    t2 = tensor(t2.to_numpy().tolist())
     grad_check(tensor_fn, t1, t2)
 
 
@@ -122,6 +125,8 @@ def test_two_grad_broadcast(
     "Test the grad of a two argument function"
     name, base_fn, tensor_fn = fn
     t1, t2 = ts
+    t1 = tensor(t1.to_numpy().tolist())
+    t2 = tensor(t2.to_numpy().tolist())
     grad_check(tensor_fn, t1, t2)
 
     # broadcast check
